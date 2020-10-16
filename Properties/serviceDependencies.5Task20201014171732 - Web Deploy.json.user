@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "signalr1": {
+      "restored": true,
+      "restoreTime": "2020-10-14T14:37:10.798949Z"
+    },
+    "mssql1": {
+      "restored": true,
+      "restoreTime": "2020-10-16T12:37:41.5213266Z"
+    }
+  },
+  "parameters": {
+    "signalr1.resourceGroupName": {
+      "Type": "resourceGroup",
+      "Value": "Task420201008213502ResourceGroup"
+    },
+    "mssql1.subscriptionId": {
+      "Type": "subscription",
+      "Value": "ba87be1a-0f04-404a-8d12-cf92974770e5"
+    },
+    "mssql1.resourceGroupName": {
+      "Type": "resourceGroup",
+      "Value": "Task420201008213502ResourceGroup"
+    },
+    "signalr1.subscriptionId": {
+      "Type": "subscription",
+      "Value": "ba87be1a-0f04-404a-8d12-cf92974770e5"
+    }
+  }
+}

@@ -1,0 +1,60 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="text-center">
+    <p name="@ViewBag.TypeOfMove" id="move" class="nav-link text-dark text-center">Ты играешь за @ViewBag.TypeOfMove</p>
+    <div class="wrapper">
+        <div class="cell" id="1"></div>
+        <div class="cell" id="2"></div>
+        <div class="cell" id="3"></div>
+        <div class="cell" id="4"></div>
+        <div class="cell" id="5"></div>
+        <div class="cell" id="6"></div>
+        <div class="cell" id="7"></div>
+        <div class="cell" id="8"></div>
+        <div class="cell" id="9"></div>
+    </div>
+
+    <div id="my_modal" class="modal">
+        <div class="modal_content">
+            <a asp-route-name="@ViewBag.Name" asp-controller="Home" asp-action="RemovePlayerFromGame" class="close_modal_window">Выйти</a>
+            <p id="winner"></p>
+        </div>
+    </div>
+
+    <div name="@ViewBag.Join" id="wait_modal" class="wait_modal">        
+        <div class="wait_modal_content">
+            <a asp-route-name="@ViewBag.Name" asp-controller="Home" asp-action="RemovePlayerFromGame" class="close_wait_modal_window">Выйти</a>
+            <p id="winner">Ожидание соперника...</p>
+        </div>
+    </div>
+    <div id="loader" class="background">
+        <p id="loader">Подключение...</p>
+        <div class="loadeeer"></div>
+    </div>    
+
+    <a name="@ViewBag.Name" id="exit" class="btn btn-primary" asp-route-name="@ViewBag.Name" asp-area="" asp-controller="Home" asp-action="RemovePlayerFromGame">Покинуть игру</a>
+</section>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="~/js/Field.js"></script>
+<script type="text/javascript">   
+    var timer = setInterval(() => {        
+        if (hubConnection.state == "Connected") {
+            document.getElementById("loader").style.display = "none";
+            wait_modal.style.display = "block";
+            console.log("first");
+            hubConnection.invoke('AddToGame', document.getElementById("exit").getAttribute("name"));
+            if (document.getElementById("wait_modal").getAttribute("name") == "join") {
+                hubConnection.invoke('CheckOpp', document.getElementById("exit").getAttribute("name"));
+                console.log("second");
+            }
+            clearInterval(timer)
+        }
+    }, 100)
+</script>
+
