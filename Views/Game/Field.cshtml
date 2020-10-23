@@ -42,19 +42,26 @@
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="~/js/Field.js"></script>
-<script type="text/javascript">   
-    var timer = setInterval(() => {        
+<script type="text/javascript">
+
+    var sizeArray = @(Html.Raw(Json.Serialize(@ViewBag.Tags)));   
+    let arr = []
+    for (i in sizeArray) {
+        arr.push(sizeArray[i]);
+    }  
+    
+
+    var timer = setInterval(() => {
         if (hubConnection.state == "Connected") {
             document.getElementById("loader").style.display = "none";
-            wait_modal.style.display = "block";
-            console.log("first");
+            wait_modal.style.display = "block";            
             hubConnection.invoke('AddToGame', document.getElementById("exit").getAttribute("name"));
             if (document.getElementById("wait_modal").getAttribute("name") == "join") {
-                hubConnection.invoke('CheckOpp', document.getElementById("exit").getAttribute("name"));
-                console.log("second");
+                hubConnection.invoke('CheckOpp', document.getElementById("exit").getAttribute("name"));                
             }
             clearInterval(timer)
         }
-    }, 100)
+    }, 100);
+
 </script>
 

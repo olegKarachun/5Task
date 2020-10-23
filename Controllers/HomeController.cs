@@ -24,10 +24,37 @@ namespace _5Task.Controllers
 
         [Authorize]
         public IActionResult Index()
-        {            
+        {
+            var Tags = SplitBy(db.Games.Select(p => p.Tags).ToList());            
             ViewBag.Games = db.Games;
             return View();
-        }           
+        }
+
+        public List<string> SplitBy(List<string> Tags)
+        {            
+            List<string> tags = new List<string>();
+            foreach(string s in Tags)
+            {
+                var TagsInGame = s.Split("#").ToList();
+                foreach(string tag in TagsInGame)
+                {
+                    tags.Add(tag);                  
+                }                
+            }
+            return tags;
+        }
+
+        [HttpGet]
+        public string[] GetTags()
+        {
+            var Tags = SplitBy(db.Games.Select(p => p.Tags).ToList()).ToArray();
+            Tags = Tags.Where(val => val != "").ToArray();
+            foreach (var i in Tags)
+            {
+                Trace.WriteLine(i);
+            }
+            return Tags;            
+        }
 
         [Authorize]
         [HttpPost]
@@ -47,15 +74,16 @@ namespace _5Task.Controllers
         [Authorize]
         public IActionResult AddPlayer(Game game, bool flag)
         {
+            var Tags = db.Games.Select(p => p.Tags).ToArray();            
             string TypeOfMove;            
             AddPlayerToGame(game, User.Identity.Name, out TypeOfMove);
             if (flag)
             {
-                return RedirectToAction("Field", "Game", new { name = game.Name, move = TypeOfMove, join = "new" });
+                return RedirectToAction("Field", "Game", new { name = game.Name, move = TypeOfMove, join = "new", tags = Tags }); ;
             }
             else
             {
-                return RedirectToAction("Field", "Game", new { name = game.Name, move = TypeOfMove, join = "join" });
+                return RedirectToAction("Field", "Game", new { name = game.Name, move = TypeOfMove, join = "join", tags = Tags });
             }
             
         }

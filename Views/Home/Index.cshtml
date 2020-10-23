@@ -4,9 +4,10 @@
 
 @model _5Task.ViewModels.NewGameModel
 
+
 <div class="text-center">
-    <h2>Выберите игру</h2>
-    <input type="text" id="filter" placeholder="Введите тег" onkeyup="tableSearch()">
+    <h2>Выберите игру</h2>    
+    <input class="form-control" type="text" name="input-custom-dropdown"  id="filter" placeholder="write some tags"/><button class="btn btn-primary" id="search">Поиск</button> 
     <section id="menu">
 
         @foreach (var item in ViewBag.Games)
@@ -38,6 +39,50 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="~/js/Index.js"></script>
+<script src="~/dist/tagify.min.js"></script>
+<script>
+    var tags;
+    $.get("Home/GetTags", function (data) {
+        var data = new Set(data)
+        tagify.settings.whitelist.splice(0, data.length, ...data)
+        tagify.loading(false).dropdown.show.call(tagify, data);
+    })    
+
+    var input = document.querySelector('input[name="input-custom-dropdown"]'),        
+        tagify = new Tagify(input, {
+            whitelist: [],
+            maxTags: 10,
+            dropdown: {
+                maxItems: 20,          
+                classname: "tags-look", 
+                enabled: 0,             
+                closeOnSelect: false 
+            }
+        })   
+
+    var button = document.getElementById("search")
+    var tagsForSearch = new Set();
+    
+    button.onclick = function () {
+        var tagsForSearch = new Set();
+        $(".tagify__tag").each(function () {
+            tagsForSearch.add(this.getAttribute("value"))
+        })
+        tiles = document.getElementsByClassName("article");
+        tags = document.getElementsByClassName("tag");
+        for (var i = 0; i < tags.length; i++) {
+            var taggs = tags[i].innerHTML.split("#")            
+            var resultArr = taggs.concat(Array.from(tagsForSearch));   
+            var resSet = new Set(resultArr)
+            if (resSet.size != taggs.length) {
+                tiles[i].style.display = "none";                 
+            } else {
+                tiles[i].style.display = "";               
+            }            
+        }          
+    }   
+</script>
+
+
 
 
