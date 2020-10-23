@@ -24,26 +24,30 @@ namespace _5Task.Controllers
 
         [Authorize]
         public IActionResult Index()
-        {
-            var Tags = SplitBy(db.Games.Select(p => p.Tags).ToList());            
+        {                       
             ViewBag.Games = db.Games;
             return View();
         }
-
+        
         public List<string> SplitBy(List<string> Tags)
         {            
             List<string> tags = new List<string>();
-            foreach(string s in Tags)
+            foreach(var s in Tags)
             {
-                var TagsInGame = s.Split("#").ToList();
-                foreach(string tag in TagsInGame)
+                if (s != null)
                 {
-                    tags.Add(tag);                  
-                }                
+                    var TagsInGame = s.Split("#").ToList();
+                    foreach (string tag in TagsInGame)
+                    {
+                        tags.Add(tag);
+                        Trace.WriteLine(tag);
+                    }
+                }                             
             }
             return tags;
         }
-
+        
+        [Authorize]
         [HttpGet]
         public string[] GetTags()
         {

@@ -95,3 +95,7 @@ A:\5Task\bin\Release\netcoreapp3.1\Properties\ServiceDependencies\5Task202010141
 A:\5Task\bin\Release\netcoreapp3.1\Properties\ServiceDependencies\5Task20201014171732 - Web Deploy\profile.arm.json
 A:\5Task\bin\Release\netcoreapp3.1\Properties\ServiceDependencies\5Task20201014171732 - Web Deploy\signalr1.arm.json
 A:\5Task\bin\Release\netcoreapp3.1\Views\Game\package-lock.json
+A:\5Task\bin\Release\netcoreapp3.1\Properties\serviceDependencies.5Task20201023112327 - Web Deploy.json
+A:\5Task\bin\Release\netcoreapp3.1\Properties\ServiceDependencies\5Task20201023112327 - Web Deploy\mssql1.arm.json
+A:\5Task\bin\Release\netcoreapp3.1\Properties\ServiceDependencies\5Task20201023112327 - Web Deploy\profile.arm.json
+A:\5Task\bin\Release\netcoreapp3.1\Properties\ServiceDependencies\5Task20201023112327 - Web Deploy\signalr1.arm.json

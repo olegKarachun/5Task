@@ -1,17 +1,14 @@
 ﻿var queue;
 var modal = document.getElementById("my_modal");
 var wait_modal = document.getElementById("wait_modal");
-var btn = document.getElementById("btn_modal_window");
 var cells = document.getElementsByClassName("cell");
 var span = document.getElementsByClassName("close_modal_window")[0];
 const hubConnection = new signalR.HubConnectionBuilder().withUrl("/Game").build();
 const TypeOfMove = document.getElementById("move").getAttribute("name");
 
-
 span.onclick = function () {
     modal.style.display = "none";
 }
-
 
 window.addEventListener("unload", function () {    
     hubConnection.invoke('RemoveFromGame', document.getElementById("exit").getAttribute("name"));
@@ -57,11 +54,6 @@ function changeQueue() {
         queue = true;
         return true;
     }
-}
-
-function myFunction() {
-    var popup = document.getElementById("myPopup");
-    popup.classList.toggle("show");
 }
 
 function checkDraw() {
